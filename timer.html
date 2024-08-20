@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odliczanie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #282c34;
+            color: white;
+            flex-direction: column;
+        }
+
+        #title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        #countdown {
+            font-size: 3em;
+        }
+    </style>
+</head>
+<body>
+    <div id="title">Coś nowego? #jutro?</div>
+    <div id="countdown">Odliczanie...</div>
+
+    <script>
+        const countdownElement = document.getElementById('countdown');
+
+        // Data i czas docelowy (25 sierpnia 2024, godzina 20:00)
+        const targetDate = new Date("August 25, 2024 20:00:00").getTime();
+        
+        // Funkcja do aktualizacji odliczania
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                countdownElement.innerHTML = "Czas minął!";
+                clearInterval(interval);
+            }
+        }
+
+        // Uruchomienie odliczania
+        updateCountdown();
+        const interval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
